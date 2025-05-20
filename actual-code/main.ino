@@ -21,7 +21,7 @@ const char index_html[] = R"(
 
 const char main_js[] = R"(
 document.addEventListener("DOMContentLoaded", () => {
-  const URL = "/control";
+  const URL = "http://192.168.4.1/control";
   let directionVectors = [0, 0];
 
   let mapping = {
