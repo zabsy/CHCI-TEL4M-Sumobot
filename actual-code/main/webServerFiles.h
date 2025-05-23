@@ -1,3 +1,17 @@
+const char index_html[] = R"rawliteral(
+<!doctype html>
+<html>
+  <head>
+    <title>Web Page</title>
+    <script src="/main.js"></script>
+  </head>
+  <body>
+    <h2>Control Page</h2>
+  </body>
+</html>
+)rawliteral";
+
+const char main_js[] = R"rawliteral(
 document.addEventListener("DOMContentLoaded", () => {
   const URL = "http://192.168.4.1/control";
   let ws = new WebSocket("ws://" + window.location.hostname + ":81/");
@@ -21,21 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {
       console.error(e);
     }
-    /*
-    try {
-      await fetch(URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          x: directionVectors[0],
-          y: directionVectors[1],
-        }),
-      });
-    } catch (badStuff) {
-      console.error(badStuff);
-    } */
   }
 
   function handleKey(event) {
@@ -53,3 +52,4 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("keydown", handleKey);
   window.addEventListener("keyup", handleKey);
 });
+)rawliteral";
