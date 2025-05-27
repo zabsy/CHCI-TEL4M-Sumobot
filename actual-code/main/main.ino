@@ -13,7 +13,17 @@ const int DIR2 = 15;
 const char* ssid = "ESP32";
 const char* password = "Bigman2025";
 
-void controlMotors(int dir1State, int dir2State, int speed1, int speed2) {
+void map_input(int x, int y) {
+  if (x==0) {
+    if (y==1) control_motors(HIGH, HIGH, 255, 255);
+    else if (y==-1) control_motors(LOW, LOW, 255, 255);
+  } else {
+    if (x==1) control_motors(HIGH, HIGH, 50, 255);
+    else if (x==-1) control_motors(HIGH, LOW, 50, 255);
+  }
+}
+
+void control_motors(int dir1State, int dir2State, int speed1, int speed2) {
   digitalWrite(DIR1, dir1State);
   digitalWrite(DIR2, dir2State);
   analogWrite(PWM1, speed1);
@@ -22,8 +32,6 @@ void controlMotors(int dir1State, int dir2State, int speed1, int speed2) {
 
 WebServer server(80);
 WebSocketsServer ws = WebSocketsServer(81);
-
-float prevX, prevY;
 
 void handle_home_page() {
   server.send(200, "text/html", index_html);
@@ -49,8 +57,8 @@ void handle_control(byte num, WStype_t type, uint8_t* payload, size_t length) {
 
       x=(x==0 ? 0: x<0 ? -1: 1);
       y=(y==0 ? 0: y<0 ? -1: 1);
-      
-      controlMotors(x<0 ? LOW: HIGH, y<0 ? LOW: HIGH, x==0 ? 0:255, y==0 ? 0:255);
+
+      map_input(x, y);
       break;
   }
 }
@@ -85,4 +93,3 @@ void loop() {
   server.handleClient();
   ws.loop();
 }
-
