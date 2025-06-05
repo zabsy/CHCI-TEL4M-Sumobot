@@ -16,7 +16,7 @@ const char* password = "Bigman2025"; // password for your network
 // x and y are mapped to the x-axis (left and right arrows) and 
 // y-axis (up and down arrows) respectively. For example pressing up and left will
 // output x = -1 and y = 1
-// modify this function to map the inputs to different 
+// modify this function to map the inputs to different behaviours.
 void map_input(int x, int y) {
   if (y == 0) {
     if (x != 0) {
