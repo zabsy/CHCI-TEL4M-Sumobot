@@ -18,3 +18,6 @@ To connect to the ESP32, use a laptop and connect to the WiFi network the ESP32 
 The most important configuration options are the WiFi SSID and password. Make these something unique so that they don't conflict with other groups' robots. The secondmost important configuration options are the pins for the motor controller. Make sure that the pins assigned to DIR1, DIR2, PWM1, and PWM2 are correct.
 
 The other optional configuration is outlined in the project file.
+
+# P.S
+Shoutout to Mr. Z. Truly a goated teacher.
