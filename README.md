@@ -14,7 +14,7 @@ All of the final code is in `actual-code/main`.
 
 To connect to the ESP32, use a laptop and connect to the WiFi network the ESP32 is hosting. This is configured in the code and will be explained later in the guide. Using your browser, connect to the IP `192.168.4.1`. You can use the arrow keys on the keyboard to control the ESP32.
 
-Note: To see the IP Address of your access point enable `USD CDC On Boot` and also `Erase All Flash Before Sketch Upload`. Both of these configuration settings can be found under the `Tools` tab of your `Arduino IDE`. Goodluck to any future student who uses this, dattebayo!
+Note: To see the IP Address of your access point enable `USB CDC On Boot` and also `Erase All Flash Before Sketch Upload`. Both of these configuration settings can be found under the `Tools` tab of your `Arduino IDE`. Goodluck to any future student who uses this, dattebayo!
 
 # Configuration
 The most important configuration options are the WiFi SSID and password. Make these something unique so that they don't conflict with other groups' robots. The secondmost important configuration options are the pins for the motor controller. Make sure that the pins assigned to DIR1, DIR2, PWM1, and PWM2 are correct.
