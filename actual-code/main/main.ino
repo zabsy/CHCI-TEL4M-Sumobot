@@ -5,24 +5,45 @@
 
 #include "webServerFiles.h" // have to do this to fix a bug with the arduino ide preprocessor (i hate arduino ide)
 
-const int PWM1 = 5;
-const int PWM2 = 14;
-const int DIR1 = 4;
-const int DIR2 = 15;
+#define PWM1 5 // pin controlling the speed of motor 1
+#define PWM2 14 // pin controlling the speed of motor 2
+#define DIR1 4 // pin controlling the direction of motor 1
+#define DIR2 15 // pin controlling the direction of motor 2
 
-const char* ssid = "ESP32";
-const char* password = "Bigman2025";
+const char* ssid = "ESP32"; // wifi access point name, change to something unique
+const char* password = "Bigman2025"; // password for your network
 
+// x and y are mapped to the x-axis (left and right arrows) and
+// y-axis (up and down arrows) respectively. For example pressing up and left will
+// output x = -1 and y = 1
+// modify this function to map the inputs to different behaviours.
 void map_input(int x, int y) {
-  if (x==0) {
-    if (y==1) control_motors(HIGH, HIGH, 255, 255);
-    else if (y==-1) control_motors(LOW, LOW, 255, 255);
-  } else {
-    if (x==1) control_motors(HIGH, HIGH, 50, 255);
-    else if (x==-1) control_motors(HIGH, LOW, 50, 255);
+  if (y == 0) {
+    if (x != 0) {
+      bool is_right = x > 0;
+      control_motors(is_right ? LOW : HIGH, is_right ? HIGH : LOW, 255, 255);
+    }
+  }
+  else {
+    bool is_up = y > 0;
+    if (x == 0) {
+      control_motors(is_up ? HIGH : LOW, is_up ? HIGH : LOW, 255, 255);
+    }
+    else {
+      bool is_right = x > 0;
+      control_motors(is_up ? HIGH : LOW, is_up ? HIGH : LOW, is_right ? 50 : 255, is_right ? 255 : 50);
+    }
+  }
+
+  if (y == 0 && x == 0) {
+    control_motors(HIGH, HIGH, 0, 0);
   }
 }
 
+// this function takes 4 parameters; the direction for motor 1, direction for
+// motor 2, speed for motor 1, and speed for motor 2.
+// the direction parameters take either HIGH or LOW which make the motor spin in
+// opposite directions. the speed parameters range between 0 and 255.
 void control_motors(int dir1State, int dir2State, int speed1, int speed2) {
   digitalWrite(DIR1, dir1State);
   digitalWrite(DIR2, dir2State);
@@ -54,16 +75,12 @@ void handle_control(byte num, WStype_t type, uint8_t* payload, size_t length) {
       DeserializationError error = deserializeJson(doc, payload);
       float x = doc["x"];
       float y = doc["y"];
-
-      x=(x==0 ? 0: x<0 ? -1: 1);
-      y=(y==0 ? 0: y<0 ? -1: 1);
-
       map_input(x, y);
       break;
   }
 }
 
-void setup() {
+void setup() { // dont touch this
   Serial.begin(115200);
   while (!Serial);
 
@@ -72,8 +89,6 @@ void setup() {
   pinMode(DIR2, OUTPUT);
   pinMode(PWM1, OUTPUT);
   pinMode(PWM2, OUTPUT);
-  prevX = 0;
-  prevY = 0;
 
   WiFi.softAP(ssid, password);
   IPAddress IP = WiFi.softAPIP();
