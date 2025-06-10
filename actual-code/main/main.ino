@@ -67,6 +67,7 @@ void setup() {
   Serial.begin(115200);
   while (!Serial);
 
+  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(DIR1, OUTPUT);
   pinMode(DIR2, OUTPUT);
   pinMode(PWM1, OUTPUT);
@@ -90,6 +91,7 @@ void setup() {
 }
 
 void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);
   server.handleClient();
   ws.loop();
 }
