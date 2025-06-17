@@ -13,10 +13,10 @@
 const char* ssid = "ESP32"; // wifi access point name, change to something unique
 const char* password = "Bigman2025"; // password for your network
 
-// x and y are mapped to the x-axis (left and right arrows) and 
+// x and y are mapped to the x-axis (left and right arrows) and
 // y-axis (up and down arrows) respectively. For example pressing up and left will
 // output x = -1 and y = 1
-// modify this function to map the inputs to different 
+// modify this function to map the inputs to different behaviours.
 void map_input(int x, int y) {
   if (y == 0) {
     if (x != 0) {
@@ -40,9 +40,9 @@ void map_input(int x, int y) {
   }
 }
 
-// this function takes 4 parameters; the direction for motor 1, direction for 
+// this function takes 4 parameters; the direction for motor 1, direction for
 // motor 2, speed for motor 1, and speed for motor 2.
-// the direction parameters take either HIGH or LOW which make the motor spin in 
+// the direction parameters take either HIGH or LOW which make the motor spin in
 // opposite directions. the speed parameters range between 0 and 255.
 void control_motors(int dir1State, int dir2State, int speed1, int speed2) {
   digitalWrite(DIR1, dir1State);
@@ -84,6 +84,7 @@ void setup() { // dont touch this
   Serial.begin(115200);
   while (!Serial);
 
+  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(DIR1, OUTPUT);
   pinMode(DIR2, OUTPUT);
   pinMode(PWM1, OUTPUT);
@@ -104,7 +105,8 @@ void setup() { // dont touch this
   Serial.println("Server started...");
 }
 
-void loop() { // dont touch this either
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);
   server.handleClient();
   ws.loop();
 }

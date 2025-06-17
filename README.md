@@ -12,9 +12,25 @@ All of the final code is in `actual-code/main`.
 4. You also need to install the drivers for each of the boards. In the Arduino IDE board manager, install "esp32" by Espressif Systems.
 5. Before you compile and upload the code, you have to select the correct board architecture and port. The board architecture will be "ESP32C6 Dev Module" and the port will be whatever you gave permissions to in step 1, likely `/dev/ttyACM0`.
 
-To connect to the ESP32, use a laptop and connect to the WiFi network the ESP32 is hosting. This is configured in the code and will be explained later in the guide. Using your browser, connect to the IP `192.168.4.1`. You can use the arrow keys on the keyboard to control the ESP32.
+## Connecting to ESP32 🔥🔥🔥
+
+To see the IP address of your access point, enable the following settings under the `Tools` tab of your `Arduino IDE`:
+- `USB CDC On Boot`
+- `Erase All Flash Before Sketch Upload`
+
+Once you upload the code, the IP address will appear in the Serial Monitor. Remember this IP Address, it is needed to connect to the ESP32.
+
+### Steps to Connect 🥶🥶🥶
+1. Use your laptop to connect to the WiFi network that the ESP32 is hosting. This is configured in the code and will be explained later.
+2. In your browser, go to the IP Address you received from the step earlier (usually it will be `192.168.4.1`).
+3. You can use the arrow keys on your keyboard to control the ESP32.
 
 # Configuration
 The most important configuration options are the WiFi SSID and password. Make these something unique so that they don't conflict with other groups' robots. Also, the WiFi password has to be at least 8 characters long. Don't ask me why, that's just the way it is. The secondmost important configuration options are the pins for the motor controller. Make sure that the pins assigned to DIR1, DIR2, PWM1, and PWM2 are correct.
 
 The other optional configuration is outlined in the project file.
+
+Goodluck to any future student who uses this, dattebayo!
+
+# P.S.
+Shoutout to Mr. Z. Truly a goated teacher.
