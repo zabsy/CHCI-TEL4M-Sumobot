@@ -3,10 +3,50 @@ const char index_html[] = R"rawliteral(
 <html>
   <head>
     <title>Web Page</title>
-    <script src="/main.js"></script>
+    <script src="main.js"></script>
+    <style>
+      body {
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .title {
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .container {
+        padding-top: 10%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+      }
+      
+      #letters > *{
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
   </head>
   <body>
-    <h2>Control Page</h2>
+    <h2 class="title">Remote Control</h2>
+
+    <div class="container">
+      <div id="letters">
+        <div id="w">UP</div>
+        <div id="a">LEFT</div>
+        <div id="s">DOWN</div>
+        <div id="d">RIGHT</div>
+      </div>
+      <div>
+        <div>&nbsp;- Forward</div>
+        <div>&nbsp;- Left</div>
+        <div>&nbsp;- Backward</div>
+        <div>&nbsp;- Right</div>
+      </div>
+    </div>    
   </body>
 </html>
 )rawliteral";
@@ -42,8 +82,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let [index, direction] = mapping[event.key];
     if (event.type === "keyup") {
       directionVectors[index] = 0;
+      if (event.keyCode == 38)
+        document.getElementById("w").style.fontWeight = "normal";
+      else if (event.keyCode == 37)
+        document.getElementById("a").style.fontWeight = "normal";
+      else if (event.keyCode == 40)
+        document.getElementById("s").style.fontWeight = "normal";
+      else if (event.keyCode == 39)
+        document.getElementById("d").style.fontWeight = "normal";
     } else {
       directionVectors[index] = direction;
+      if (event.keyCode == 38)
+        document.getElementById("w").style.fontWeight = "bold";
+      else if (event.keyCode == 37)
+        document.getElementById("a").style.fontWeight = "bold";
+      else if (event.keyCode == 40)
+        document.getElementById("s").style.fontWeight = "bold";
+      else if (event.keyCode == 39)
+        document.getElementById("d").style.fontWeight = "bold";
     }
 
     sendRequest();

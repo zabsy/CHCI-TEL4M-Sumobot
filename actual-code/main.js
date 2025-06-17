@@ -21,21 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {
       console.error(e);
     }
-    /*
-    try {
-      await fetch(URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          x: directionVectors[0],
-          y: directionVectors[1],
-        }),
-      });
-    } catch (badStuff) {
-      console.error(badStuff);
-    } */
   }
 
   function handleKey(event) {
@@ -43,8 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let [index, direction] = mapping[event.key];
     if (event.type === "keyup") {
       directionVectors[index] = 0;
+      if (event.keyCode == 38)
+        document.getElementById("w").style.fontWeight = "normal";
+      else if (event.keyCode == 37)
+        document.getElementById("a").style.fontWeight = "normal";
+      else if (event.keyCode == 40)
+        document.getElementById("s").style.fontWeight = "normal";
+      else if (event.keyCode == 39)
+        document.getElementById("d").style.fontWeight = "normal";
     } else {
       directionVectors[index] = direction;
+      if (event.keyCode == 38)
+        document.getElementById("w").style.fontWeight = "bold";
+      else if (event.keyCode == 37)
+        document.getElementById("a").style.fontWeight = "bold";
+      else if (event.keyCode == 40)
+        document.getElementById("s").style.fontWeight = "bold";
+      else if (event.keyCode == 39)
+        document.getElementById("d").style.fontWeight = "bold";
     }
 
     sendRequest();
